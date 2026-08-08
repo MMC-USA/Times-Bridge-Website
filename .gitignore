@@ -1,0 +1,19 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Dependencies / local tooling
+node_modules/
+.vercel/
+
+# Oversized / duplicate media (keep assets/video/bridge-hero.mp4 for the site)
+Bridge-original-full.mp4
+Bridge.mp4
+Bridge-cropped.mp4
+Bridge-trimmed.mp4
+ffmpeg-crop.log
+
+assets/images/bridge-hero.mp4

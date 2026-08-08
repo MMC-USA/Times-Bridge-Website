@@ -17,3 +17,8 @@ Bridge-trimmed.mp4
 ffmpeg-crop.log
 
 assets/images/bridge-hero.mp4
+.vercel
+.env*
+
+.env*.local
+.env.local

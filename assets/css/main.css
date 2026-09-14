@@ -613,6 +613,9 @@ h3,
   width: 100%;
   margin-bottom: 20px;
   text-shadow: none;
+  font-size: clamp(1.85rem, 3.6vw, 2.65rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
 .hero .hero-panel .lede {

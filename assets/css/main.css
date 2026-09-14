@@ -500,6 +500,19 @@ h3,
   display: block;
 }
 
+/* Phone/tablet: keep Golden Gate (right side of clip) in frame */
+@media (max-width: 900px) {
+  .hero-landing .hero-media video {
+    object-position: 82% center;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-landing .hero-media video {
+    object-position: 88% center;
+  }
+}
+
 .hero-landing::before {
   background: linear-gradient(
     105deg,
@@ -728,12 +741,14 @@ h3,
 .toi-block img,
 .toi-fit {
   width: 100%;
+  max-width: 440px;
   height: auto;
-  aspect-ratio: 1024 / 764;
+  aspect-ratio: 440 / 582;
   object-fit: contain;
   object-position: center;
   background: transparent;
   display: block;
+  justify-self: center;
 }
 
 .news-row {
@@ -1045,47 +1060,226 @@ h3,
   margin: 0 0 16px;
 }
 
-/* ---------- Portfolio ---------- */
+/* ---------- Portfolio partners (timesbridge.com-style) ---------- */
+.our-partners .section-head h2 {
+  margin-bottom: 36px;
+}
+
 .partners-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1px;
-  background: var(--line);
-  border: 1px solid var(--line);
+  gap: 20px 16px;
+  background: transparent;
+  border: none;
 }
 
-.partner-tile {
+.partner-card {
+  --partner-accent: #efa91e;
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 120px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #eaeaea;
   background: #fff;
-  min-height: 140px;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  transition: border-color 0.35s ease;
+}
+
+.partner-card-static {
+  cursor: default;
+}
+
+.partner-card:hover,
+.partner-card:focus-visible {
+  border-color: var(--partner-accent);
+  outline: none;
+}
+
+.partner-logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  padding: 28px 24px 36px;
+}
+
+.partner-logo {
+  display: block;
+  max-width: 72%;
+  max-height: 52px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.partner-logo-hover {
+  display: none;
+}
+
+.partner-card:hover .partner-logo:not(.partner-logo-hover),
+.partner-card:focus-visible .partner-logo:not(.partner-logo-hover) {
+  display: none;
+}
+
+.partner-card:hover .partner-logo-hover,
+.partner-card:focus-visible .partner-logo-hover {
+  display: block;
+}
+
+.partner-explore {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px 12px;
+  color: var(--partner-accent);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.partner-card:hover .partner-explore,
+.partner-card:focus-visible .partner-explore {
+  display: flex;
+}
+
+.partner-explore span {
+  font-size: 1rem;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+/* Partner story modal */
+.partner-modal[hidden] {
+  display: none !important;
+}
+
+.partner-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
   display: grid;
   place-items: center;
-  padding: 28px;
-  transition: background 0.25s;
+  padding: 24px 16px;
 }
 
-.partner-tile:hover {
-  background: var(--red-soft);
+.partner-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(7, 7, 7, 0.7);
 }
 
-.partner-tile img {
-  max-height: 56px;
-  width: auto;
-  max-width: 70%;
-  object-fit: contain;
-  filter: grayscale(1);
-  transition: filter 0.25s;
+.partner-modal-dialog {
+  position: relative;
+  z-index: 1;
+  width: min(960px, 100%);
+  max-height: min(88vh, 900px);
+  overflow: auto;
+  background: #fff;
+  padding: 40px 36px 48px;
+  box-shadow: 0 24px 80px rgba(5, 15, 50, 0.28);
 }
 
-.partner-tile:hover img {
-  filter: none;
-}
-
-.partner-tile span {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  font-weight: 500;
+.partner-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  border: 0;
+  background: transparent;
   color: var(--navy);
-  text-align: center;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.partner-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 28px;
+  padding-right: 36px;
+}
+
+.partner-modal-logo {
+  max-height: 40px;
+  max-width: 160px;
+  width: auto;
+  object-fit: contain;
+}
+
+.partner-modal-header h2 {
+  margin: 0;
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+}
+
+.partner-quote {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  line-height: 1.45;
+  color: var(--navy);
+  font-weight: 500;
+}
+
+.partner-cite {
+  display: block;
+  margin: 0 0 28px;
+  font-style: normal;
+  color: #576782;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.partner-cite strong {
+  display: block;
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.partner-moments {
+  margin-bottom: 28px;
+}
+
+.partner-moments h3,
+.partner-story h3 {
+  margin: 0 0 14px;
+  font-size: 1.05rem;
+  color: var(--navy);
+}
+
+.partner-moments ul {
+  margin: 0;
+  padding-left: 1.15rem;
+  color: #576782;
+  display: grid;
+  gap: 8px;
+}
+
+.partner-story p {
+  margin: 0 0 14px;
+  color: #576782;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.partner-story p:last-child {
+  margin-bottom: 0;
+}
+
+body.partner-modal-open {
+  overflow: hidden;
 }
 
 .pitch-box {
@@ -1382,6 +1576,25 @@ h3,
 
   .partners-grid {
     grid-template-columns: repeat(4, 1fr);
+    gap: 48px 20px;
+  }
+
+  .partner-card {
+    min-height: 174px;
+  }
+
+  .partner-logo-wrap {
+    min-height: 174px;
+    padding: 32px 28px 44px;
+  }
+
+  .partner-logo {
+    max-height: 56px;
+    max-width: 70%;
+  }
+
+  .partner-modal-dialog {
+    padding: 48px 52px 56px;
   }
 
   .stats-grid {
@@ -1436,6 +1649,35 @@ h3,
 
   .hero-panel {
     padding: 28px;
+  }
+
+  .partners-grid {
+    gap: 12px;
+  }
+
+  .partner-card {
+    min-height: 88px;
+  }
+
+  .partner-logo-wrap {
+    min-height: 88px;
+    padding: 18px 14px 28px;
+  }
+
+  .partner-logo {
+    max-height: 36px;
+    max-width: 78%;
+  }
+
+  .partner-explore {
+    display: flex;
+    padding: 6px 10px 8px;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+  }
+
+  .partner-modal-dialog {
+    padding: 28px 20px 32px;
   }
 }
 

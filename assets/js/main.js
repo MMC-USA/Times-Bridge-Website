@@ -199,4 +199,43 @@
       new TxtType(el, JSON.parse(toRotate), period);
     } catch (_) {}
   });
+
+  // Portfolio partner story modals
+  let activePartnerModal = null;
+
+  function closePartnerModal() {
+    if (!activePartnerModal) return;
+    activePartnerModal.hidden = true;
+    activePartnerModal = null;
+    body.classList.remove("partner-modal-open");
+  }
+
+  function openPartnerModal(id) {
+    const modal = document.getElementById("partner-" + id);
+    if (!modal) return;
+    closePartnerModal();
+    modal.hidden = false;
+    activePartnerModal = modal;
+    body.classList.add("partner-modal-open");
+    const closeBtn = modal.querySelector(".partner-modal-close");
+    if (closeBtn) closeBtn.focus();
+  }
+
+  document.querySelectorAll("[data-partner-open]").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      openPartnerModal(btn.getAttribute("data-partner-open"));
+    });
+  });
+
+  document.querySelectorAll("[data-partner-close]").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      closePartnerModal();
+    });
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closePartnerModal();
+  });
 })();
